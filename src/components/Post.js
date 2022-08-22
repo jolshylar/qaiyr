@@ -1,17 +1,45 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import * as Progress from "react-native-progress";
+import { urlFor } from "../sanity";
 
-const Post = () => {
+const Post = ({
+  id,
+  title,
+  slug,
+  author,
+  mainImage,
+  categories,
+  publishedAt,
+  body,
+  approved,
+  currentAmount,
+  neededAmount,
+}) => {
   const navigation = useNavigation();
+
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("Post")}
-      className="m-2 rounded-xl"
+      onPress={() =>
+        navigation.navigate("Post", {
+          id,
+          title,
+          slug,
+          author,
+          mainImage,
+          categories,
+          publishedAt,
+          body,
+          approved,
+          currentAmount,
+          neededAmount,
+        })
+      }
+      className="m-2 rounded-xl border-[1px]"
     >
       <Image
         source={{
-          uri: "https://www.brisbanekids.com.au/wp-content/uploads/2014/07/shutterstock_162013601.jpg",
+          uri: urlFor(mainImage).url(),
         }}
         className="max-w-max h-32 rounded-t-xl"
       />
@@ -20,17 +48,18 @@ const Post = () => {
         <View className="flex-row items-center gap-2">
           <Image
             source={{
-              uri: "https://bigredcloud.com/wp-content/uploads/2015/10/4-tips-for-taking-professional-profile-pictures.jpg",
+              uri: urlFor(author.image).url(),
             }}
             className="h-7 w-7 bg-gray-300 p-4 rounded-full"
           />
-          <Text className="font-semibold">Babulovs Family</Text>
+          <Text className="font-semibold">{author.name}</Text>
+          <Text>{title}</Text>
         </View>
         {/* Progress Bar */}
         <View className="flex-row items-center gap-2 justify-center">
-          <Text>123123</Text>
-          <Progress.Bar progress={0.9} color="#3B7F8E" />
-          <Text>132132</Text>
+          <Text>{currentAmount}</Text>
+          <Progress.Bar progress={currentAmount / neededAmount} color="#3B7F8E" />
+          <Text>{neededAmount}</Text>
         </View>
       </View>
     </TouchableOpacity>

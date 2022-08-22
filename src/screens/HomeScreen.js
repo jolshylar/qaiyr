@@ -13,10 +13,31 @@ import {
   SearchIcon,
   UserIcon,
 } from "react-native-heroicons/outline";
+import { useEffect, useState } from "react";
+import sanityClient from "../sanity";
 import Post from "../components/Post";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+      *[_type == "post" && approved == true] {
+        ...,
+        author ->{
+          ...,
+        },
+        category ->{
+          ...,
+        },
+      }
+      `
+      )
+      .then((data) => setPosts(data));
+  }, []);
 
   return (
     <SafeAreaView className="bg-white">
@@ -50,8 +71,9 @@ const HomeScreen = () => {
       </View>
       {/* Posts */}
       <ScrollView className="mx-4 mb-32">
-        <Post />
-        <Post />
+        {posts.map((post) => (
+          <Post key={post.id} {...post} />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
