@@ -6,12 +6,13 @@ import {
   Image,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import {
   AdjustmentsIcon,
   ChevronDownIcon,
+  CogIcon,
   SearchIcon,
-  UserIcon,
 } from "react-native-heroicons/outline";
 import { useEffect, useState } from "react";
 import sanityClient from "../sanity";
@@ -40,39 +41,42 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView className="bg-white">
+    <SafeAreaView>
       {/* Header */}
       <View className="flex-row p-4 items-center gap-2">
-        <Image
-          source={{
-            uri: "https://bigredcloud.com/wp-content/uploads/2015/10/4-tips-for-taking-professional-profile-pictures.jpg",
-          }}
-          className="h-7 w-7 bg-gray-300 p-4 rounded-full"
-        />
-        <View className="flex-1">
-          <Text className="font-bold text-gray-400 text-xs">raiser</Text>
-          <Text className="font-bold text-xl">
-            Hi, Daryn! <ChevronDownIcon size={20} color="#00CCBB" />
-          </Text>
-        </View>
-
-        <UserIcon size={35} color="#00CCBB" />
+        <TouchableOpacity
+          className="flex-1 flex-row items-center space-x-2"
+          onPress={() => navigation.navigate("Profile")}
+        >
+          <Image
+            source={{
+              uri: "https://bigredcloud.com/wp-content/uploads/2015/10/4-tips-for-taking-professional-profile-pictures.jpg",
+            }}
+            className="h-7 w-7 bg-gray-300 p-4 rounded-full"
+          />
+          <View>
+            <Text className="font-bold text-gray-400 text-xs">raiser</Text>
+            <Text className="font-bold text-xl">
+              Hi, Daryn! <ChevronDownIcon size={20} color="#3B7F8E" />
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+          <CogIcon size={35} color="#3B7F8E" />
+        </TouchableOpacity>
       </View>
       {/* Search */}
       <View className="flex-row items-center gap-2 pb-2 mx-4">
         <View className="flex-row items-center gap-2 flex-1 bg-gray-200 p-3 rounded-xl">
           <SearchIcon color="gray" size={20} />
-          <TextInput
-            placeholder="Restaurants and cuisines"
-            keyboardType="default"
-          />
+          <TextInput placeholder="Search and help!" keyboardType="default" />
         </View>
-        <AdjustmentsIcon color="#00CCBB" />
+        <AdjustmentsIcon color="#3B7F8E" />
       </View>
       {/* Posts */}
       <ScrollView className="mx-4 mb-32">
         {posts.map((post) => (
-          <Post key={post.id} {...post} />
+          <Post key={post._id} {...post} />
         ))}
       </ScrollView>
     </SafeAreaView>

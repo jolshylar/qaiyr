@@ -58,6 +58,7 @@ const PostScreen = () => {
         </View>
         {/* Total Earned */}
         <View className="py-10 items-center justify-center gap-2">
+          <Text className="text-2xl font-extrabold">Total Earned</Text>
           <Progress.Bar
             progress={currentAmount / neededAmount}
             color="#3B7F8E"
@@ -65,7 +66,6 @@ const PostScreen = () => {
             height={20}
             className="rounded-full"
           />
-          <Text className="text-2xl font-extrabold">Total Earned</Text>
           <Text className="text-center text-xl text-[#3B7F8E] font-bold">
             {currentAmount} / {neededAmount} KZT
           </Text>
@@ -73,13 +73,11 @@ const PostScreen = () => {
             {Math.round((currentAmount / neededAmount) * 100)}%
           </Text>
         </View>
-
-        <Text>{publishedAt}</Text>
       </View>
 
       <TouchableOpacity
-        onPress={navigation.goBack}
-        className="bg-[#3B7F8E] w-[85%] rounded-md p-2"
+        onPress={() => navigation.navigate("Payment")}
+        className="bg-[#3B7F8E] w-[85%] rounded-xl p-2"
       >
         <Text className="text-2xl font-extrabold text-center text-white">
           Donate
