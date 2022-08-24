@@ -1,48 +1,84 @@
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import {
+  BellIcon,
   ChevronLeftIcon,
-  ChevronRightIcon,
+  LockClosedIcon,
+  LogoutIcon,
+  QuestionMarkCircleIcon,
+  SupportIcon,
+  UserIcon,
+  UserRemoveIcon,
 } from "react-native-heroicons/outline";
 import project from "../../package.json";
 
-const Setting = ({ children, isDanger = false }) => {
+const Setting = ({ children, isDanger = false, leftIcon, screen }) => {
+  const navigation = useNavigation();
   return (
-    <View className="w-full px-4 py-2 flex-row items-center justify-between border-b">
+    <TouchableOpacity
+      onPress={() => navigation.navigate(screen)}
+      className="px-4 py-2 flex-row items-center space-x-2 border-b mx-2 border-gray-500"
+    >
+      {leftIcon}
       <Text className={`text-xl font-bold ${isDanger && "text-red-500"}`}>
         {children}
       </Text>
-      {!isDanger && <ChevronRightIcon />}
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const SettingsScreen = () => {
-  const navigaiton = useNavigation();
+  const navigation = useNavigation();
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1">
       {/* Navigation */}
-      <TouchableOpacity
-        className="flex-row w-full justify-between px-8 py-2"
-        onPress={navigaiton.goBack}
-      >
-        <ChevronLeftIcon size={24} color="#3B7F8E" />
-      </TouchableOpacity>
+      <View className="flex-row items-center space-x-24 px-8">
+        <TouchableOpacity onPress={navigation.goBack}>
+          <ChevronLeftIcon size={24} color="#3B7F8E" />
+        </TouchableOpacity>
+      </View>
+      <Text className="text-xl font-bold absolute top-12 w-full text-center">
+        Settings
+      </Text>
 
-      <View className="my-10">
-        {/* Navigation */}
-        <Setting>Privacy Policy</Setting>
-        <Setting>FAQs</Setting>
-        <Setting>Contact Us</Setting>
+      <View className="my-20">
+        <Setting screen="Profile" leftIcon={<UserIcon color="black" />}>
+          Account
+        </Setting>
+        <Setting leftIcon={<BellIcon color="black" />}>Notifications</Setting>
+        <Setting leftIcon={<LockClosedIcon color="black" />}>
+          Privacy Policy
+        </Setting>
+        <Setting leftIcon={<SupportIcon color="black" />}>
+          Help and support
+        </Setting>
+        <Setting leftIcon={<QuestionMarkCircleIcon color="black" />}>
+          About
+        </Setting>
         {/* Danger Zone */}
-        <Setting isDanger>Sign Out</Setting>
-        <Setting isDanger>Delete Account</Setting>
+        <Setting leftIcon={<LogoutIcon color="red" />} isDanger>
+          Sign Out
+        </Setting>
+        <Setting leftIcon={<UserRemoveIcon color="red" />} isDanger>
+          Delete Account
+        </Setting>
       </View>
 
-      {/* App Info */}
-      <Text className="text-center text-2xl font-bold">
-        {project.name} v{project.version}
+      <Text className="text-center text-gray-400 text-lg">
+        Enjoy our product?{" "}
+        <Text
+          onPress={() => navigation.navigate("Support Authors")}
+          className="font-semibold text-[#3B7F8E]"
+        >
+          Support us!
+        </Text>
       </Text>
+      {/* App Info */}
+      <View className="absolute bottom-10 items-center justify-center w-full">
+        <Text className="text-center text-lg font-bold text-gray-400">
+          {project.name} v{project.version}
+        </Text>
+      </View>
     </SafeAreaView>
   );
 };
