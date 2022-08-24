@@ -55,14 +55,11 @@ const Post = ({
         </View>
         <Text className="my-2 text-xl font-semibold">{title}</Text>
         {/* Progress Bar */}
-        <View className="p-2 flex-row items-center gap-2 justify-center">
-          <Text>{currentAmount} KZT</Text>
-          <Progress.Bar
-            progress={currentAmount / neededAmount}
-            color="#3B7F8E"
-          />
-          <Text>{neededAmount} KZT</Text>
-        </View>
+        <Progress.Bar
+          progress={currentAmount / neededAmount}
+          color="#3B7F8E"
+          width={310}
+        />
       </View>
     </TouchableOpacity>
   );
