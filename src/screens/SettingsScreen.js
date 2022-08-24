@@ -2,7 +2,6 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import {
   BellIcon,
-  ChevronLeftIcon,
   LockClosedIcon,
   LogoutIcon,
   QuestionMarkCircleIcon,
@@ -31,16 +30,6 @@ const SettingsScreen = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView className="flex-1">
-      {/* Navigation */}
-      <View className="flex-row items-center space-x-24 px-8">
-        <TouchableOpacity onPress={navigation.goBack}>
-          <ChevronLeftIcon size={24} color="#3B7F8E" />
-        </TouchableOpacity>
-      </View>
-      <Text className="text-xl font-bold absolute top-12 w-full text-center">
-        Settings
-      </Text>
-
       <View className="my-20">
         <Setting screen="Profile" leftIcon={<UserIcon color="black" />}>
           Account
