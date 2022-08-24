@@ -43,10 +43,11 @@ const HomeScreen = () => {
   return (
     <SafeAreaView>
       {/* Header */}
-      <View className="flex-row p-4 items-center gap-2">
+      <View className="flex-row p-4 items-center justify-between gap-2">
         <TouchableOpacity
-          className="flex-1 flex-row items-center space-x-2"
+          className="flex-row items-center space-x-2"
           onPress={() => navigation.navigate("Profile")}
+          activeOpacity={0.8}
         >
           <Image
             source={{
@@ -66,12 +67,12 @@ const HomeScreen = () => {
         </TouchableOpacity>
       </View>
       {/* Search */}
-      <View className="flex-row items-center gap-2 pb-2 mx-4">
+      <View className="flex-row items-center gap-2 py-2 mx-4">
         <View className="flex-row items-center gap-2 flex-1 bg-gray-200 p-3 rounded-xl">
           <SearchIcon color="gray" size={20} />
           <TextInput placeholder="Search and help!" keyboardType="default" />
         </View>
-        <AdjustmentsIcon color="#3B7F8E" />
+        <AdjustmentsIcon color="#3B7F8E" onPress={() => navigation.navigate("Loading")} />
       </View>
       {/* Posts */}
       <ScrollView className="mx-4 mb-32">

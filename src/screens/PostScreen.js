@@ -31,7 +31,8 @@ const PostScreen = () => {
         justifyContent: "center",
       }}
     >
-      <View className="flex-row w-full justify-between px-8 pt-8">
+      {/* Header */}
+      <View className="top-5 absolute flex-row w-full justify-between px-8 pt-8">
         <TouchableOpacity onPress={navigation.goBack}>
           <ChevronLeftIcon size={24} color="#3B7F8E" />
         </TouchableOpacity>
@@ -40,7 +41,7 @@ const PostScreen = () => {
         </TouchableOpacity>
       </View>
       {/* Post Content */}
-      <View className="bg-white m-4 rounded-xl">
+      <View className="bg-white m-4 rounded-xl w-[90%]">
         <Image
           source={{ uri: urlFor(mainImage).url() }}
           className="max-w-max h-48 rounded-t-xl"
